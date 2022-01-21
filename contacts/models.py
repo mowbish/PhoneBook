@@ -10,7 +10,7 @@ class Contact(User):
 
 
 class Phone(models.Model):
-    contact = models.ForeignKey(Contact)
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
     phone_number_regex = RegexValidator(regex=r"^\+?1?\d{8,15}$", message='Must enter a valid phone number')
     phone_number = models.CharField(validators=[phone_number_regex], max_length=16, blank=True)
     created = models.DateTimeField(auto_now_add=True)
