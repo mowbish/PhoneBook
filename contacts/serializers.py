@@ -14,9 +14,8 @@ class CreateContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
         fields = (
-            'phone_number', 'password', 'password2'
+            'phone_number', 'password', 'password2', 'first_name', 'last_name', 'email'
         )
-
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
@@ -27,8 +26,9 @@ class CreateContactSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         contact = Contact.objects.create(
             phone_number=validated_data["phone_number"],
-
-
+            first_name=validated_data["first_name"],
+            last_name=validated_data["last_name"],
+            email=validated_data["email"],
         )
 
         contact.set_password(validated_data['password'])
@@ -40,4 +40,4 @@ class CreateContactSerializer(serializers.ModelSerializer):
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = "__all__"
+        fields = ('id', 'first_name', 'last_name', 'email', 'phone_number', 'groups')
