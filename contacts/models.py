@@ -1,7 +1,6 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser, Group
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
 from django.db import models
 from .managers import CustomUserManager
 
@@ -18,7 +17,7 @@ class User(AbstractUser):
     user_type_choices = (
         (CLIENT, 'CLIENT'),
     )
-    user_type = models.CharField(choices=user_type_choices, default=CLIENT)
+    user_type = models.CharField(choices=user_type_choices, max_length=20, default=CLIENT)
     phone_number = models.CharField(validators=[phone_number_regex], max_length=16, unique=True)
 
     USERNAME_FIELD = "phone_number"
