@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'contacts',
     'rest_framework',
     'celery',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -124,7 +125,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'contacts.Client'
+AUTH_USER_MODEL = 'contacts.User'
 
 # Celery Configuration Options
 CELERY_TIMEZONE = "Asia/Tehran"
