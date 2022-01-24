@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'celery',
     'django_celery_results',
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'PhoneBook',
         'USER': 'postgres',
-        'PASSWORD': 'mobinmobin1380',
+        'PASSWORD': 'mobinmobin',
         'HOST': 'localhost',
         'PORT': '5432',
     }
