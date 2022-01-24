@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from .managers import CustomUserManager
 
-from PhoneBook.utils import phone_number_regex
+from conf.utils import phone_number_regex
 
 
 class User(AbstractUser):

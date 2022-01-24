@@ -1,11 +1,12 @@
 from django.urls import path
 
-from contacts.views import ClientAPIView, SignUpAPIView, CreateContactAPIView,CreateContactListAPIView
+from contacts.views import (SignUpAPIView, CreateContactAPIView,
+                            ContactDetailAPIView, CreateContactGroupAPIView, DetailContactGroupAPIView)
 
 urlpatterns = [
-
     path('signup/', SignUpAPIView.as_view(), name='signup'),
-    path('create/contact', CreateContactAPIView.as_view(), name='create-contact-list'),
-    path('create/contact-list', CreateContactListAPIView.as_view(), name='create-contact-list'),
-    path('<str:name>', ClientAPIView.as_view(), name='contact'),
+    path('create/contact/', CreateContactAPIView.as_view(), name='create-contact'),
+    path('contact/<str:phone_number>/', ContactDetailAPIView.as_view(), name='detail-contact'),
+    path('create/group/', CreateContactGroupAPIView.as_view(), name='create-group'),
+    path('group/<str:name>/', ContactDetailAPIView.as_view(), name='detail-group'),
 ]
