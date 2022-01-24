@@ -139,6 +139,10 @@ Enjoy it ;)
     │   └── wsgi.py
     ├── contacts
     │   ├── admin.py
+    │   ├── api
+    │   │   ├── serializers.py
+    │   │   ├── urls.py
+    │   │   └── views.py
     │   ├── apps.py
     │   ├── __init__.py
     │   ├── managers.py
@@ -150,6 +154,11 @@ Enjoy it ;)
     │   ├── tests.py
     │   ├── urls.py
     │   └── views.py
+    ├── core
+    │   ├── __init__.py
+    │   ├── migrations
+    │   │   └── __init__.py
+    │   └── urls.py
     ├── manage.py
     ├── README.md
     └── requirements.txt
@@ -157,13 +166,25 @@ Enjoy it ;)
 
 ### why I use this structure to project
 
+maybe you asked from your self why I preferd to use
+from this structure to Project
+
+The answer is simple
+
+for **maintain structure and scalability**
+
 in `contacts` app we have `api` folder that which contains three `serializers.py`, `views.py` and `urls.py` files
 
-The purpose of this work was to keep the project clean and to separate the API(DRF) ``views`` from the normal views
+The purpose of this work was to keep the project clean and to separate the API(DRF) ``views`` from the normal ``views``
 
 Also concise `` URLs`` to the API
 
-in this structure i use from `core` folder which contains three files
-`serializers.py`, `views.py` and `urls.py`
+in this structure i have been created `core` app which contains one file that `urls.py` to handle all the main things about the ``API's``
 
 with `urls.py` we can versioning the API's and
+
+I could have created the core as a folder and added it to the project, but I did not do so to **maintain structure and scalability**
+
+so in future versions you can also use it (core) for other tasks and works
+
+like adding `serializers.py` or `views.py` or etc
