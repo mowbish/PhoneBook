@@ -57,7 +57,13 @@ class CreateContactSerializer(serializers.ModelSerializer):
         return contact
 
 
-class ContactDetailSerializer(serializers.ModelSerializer):
+class ShowAllContactsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = "__all__"
+
+
+class RetrieveContactDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
         fields = "__all__"
@@ -101,6 +107,12 @@ class CreateContactGroupSerializer(serializers.ModelSerializer):
             if contact.user != self.context['request'].user:
                 raise ValidationError("you dont have permission to this user")
         return attrs
+
+
+class ShowAllGroupsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactGroup
+        fields = "__all__"
 
 
 class RetrieveContactGroupSerializer(serializers.ModelSerializer):
