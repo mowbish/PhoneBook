@@ -2,5 +2,7 @@
 venv
 **/__pycache__/**
 db.sqlite3
-contacts/migrations/**
-!contacts/migrations/__init__.py
+project/contacts/migrations/**
+!project/contacts/migrations/__init__.py
+project/core/migrations/**
+!project/core/migrations/__init__.py
