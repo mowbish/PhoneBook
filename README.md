@@ -64,7 +64,7 @@ git clone https://github.com/mowbish/PhoneBook.git
 After that go into the project folder with:
 
 ```shell
-cd PhoneBook
+cd project
 ```
 
 now create a virtual box
