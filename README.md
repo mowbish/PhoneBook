@@ -124,45 +124,41 @@ Enjoy it ;)
 ---
 
 ```shell
-├── docker-compose.yml
-├── project
-│   ├── conf
-│   │   ├── asgi.py
-│   │   ├── celery.py
-│   │   ├── __init__.py
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   ├── utils.py
-│   │   └── wsgi.py
-│   ├── contacts
-│   │   ├── admin.py
-│   │   ├── api
-│   │   │   ├── serializers.py
-│   │   │   ├── urls.py
-│   │   │   └── views.py
-│   │   ├── apps.py
-│   │   ├── __init__.py
-│   │   ├── management
-│   │   │   └── commands
-│   │   │       └── email_report.py
-│   │   ├── managers.py
-│   │   ├── migrations
-│   │   │   ├── 0001_initial.py
-│   │   │   └── __init__.py
-│   │   ├── models.py
-│   │   ├── permissions.py
-│   │   ├── serializers.py
-│   │   ├── tests.py
-│   │   ├── urls.py
-│   │   └── views.py
-│   ├── core
-│   │   ├── __init__.py
-│   │   ├── migrations
-│   │   │   └── __init__.py
-│   │   └── urls.py
-│   ├── manage.py
-│   └── requirements.txt
-└── README.md
+└── PhoneBook
+    ├── conf
+    │   ├── asgi.py
+    │   ├── celery.py
+    │   ├── __init__.py
+    │   ├── settings.py
+    │   ├── urls.py
+    │   ├── utils.py
+    │   └── wsgi.py
+    ├── contacts
+    │   ├── admin.py
+    │   ├── api
+    │   │   ├── serializers.py
+    │   │   ├── urls.py
+    │   │   └── views.py
+    │   ├── apps.py
+    │   ├── __init__.py
+    │   ├── managers.py
+    │   ├── migrations
+    │   │   ├── 0001_initial.py
+    │   │   └── __init__.py
+    │   ├── models.py
+    │   ├── permissions.py
+    │   ├── tasks.py
+    │   ├── tests.py
+    │   ├── urls.py
+    │   └── views.py
+    ├── core
+    │   ├── __init__.py
+    │   ├── migrations
+    │   │   └── __init__.py
+    │   └── urls.py
+    ├── manage.py
+    ├── README.md
+    └── requirements.txt
 ```
 
 ### why I use this structure to project
