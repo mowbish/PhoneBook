@@ -66,7 +66,7 @@ After that go into the project folder and  create a virtual env
 
 | Windows | Linux |
 | --- | --- |
-| ``> cd PhoneBook\project  `` | ``$ cd PhoneBook/project`` |
+| ``> cd PhoneBook\  `` | ``$ cd PhoneBook/`` |
 | ``> python -m venv venv `` | ``$ virtualenv venv`` |
 | ``> venv\scripts\activate`` | ``$ source venv/bin/activate`` |
 
