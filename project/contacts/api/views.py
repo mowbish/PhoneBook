@@ -2,10 +2,10 @@ from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView,
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from contacts.permissions import IsOwner
 from contacts.models import (User, Contact, ContactGroup, )
-from .serializers import (SignUpSerializer, CreateContactSerializer,
-                          ContactDetailSerializer, CreateContactGroupSerializer, RetrieveContactGroupSerializer)
+from .serializers import (SignUpSerializer, CreateContactSerializer, ShowAllContactsSerializer,
+                          RetrieveContactDetailSerializer, CreateContactGroupSerializer,
+                          ShowAllGroupsSerializer, RetrieveContactGroupSerializer)
 
 
 class SignUpAPIView(CreateAPIView):
@@ -26,6 +26,21 @@ class CreateContactAPIView(CreateAPIView):
     queryset = Contact.objects.all()
 
 
+class ShowAllContactsAPIView(ListAPIView):
+    """
+        User can see their all contacts
+    """
+    serializer_class = ShowAllContactsSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return Contact.objects.filter(user=self.request.user)
+
+    def get(self, request, *args, **kwargs):
+        serializer = ShowAllContactsSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
+
 class ContactDetailAPIView(RetrieveUpdateDestroyAPIView):
     """
         Each user can manage their contacts info
@@ -33,14 +48,14 @@ class ContactDetailAPIView(RetrieveUpdateDestroyAPIView):
     """
 
     permission_classes = (IsAuthenticated,)
-    serializer_class = ContactDetailSerializer
+    serializer_class = RetrieveContactDetailSerializer
     lookup_field = "phone_number"
 
     def get_queryset(self):
         return Contact.objects.filter(user=self.request.user)
 
     def get(self, request, *args, **kwargs):
-        serializer = ContactDetailSerializer(self.get_queryset(), many=True)
+        serializer = RetrieveContactDetailSerializer(self.get_queryset(), many=True)
         return Response(serializer.data)
 
 
@@ -53,9 +68,22 @@ class CreateContactGroupAPIView(CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        z = ContactGroup.objects.filter(user=self.request.user)
-        print(f"\n \n {z}")
-        return z
+        return ContactGroup.objects.filter(user=self.request.user)
+
+
+class ShowAllGroupsAPIView(ListAPIView):
+    """
+        With this class user can see their all groups
+    """
+    serializer_class = ShowAllGroupsSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return ContactGroup.objects.filter(user=self.request.user)
+
+    def get(self, request, *args, **kwargs):
+        serializer = ShowAllGroupsSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
 
 
 class DetailContactGroupAPIView(RetrieveUpdateDestroyAPIView):
