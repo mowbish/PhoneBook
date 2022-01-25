@@ -1,8 +1,9 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+
 from conf.utils import phone_number_regex
 from contacts.models import User, ContactGroup, ExtraPhone, Contact
 from django.contrib.auth.password_validation import validate_password
-from django.contrib.auth.models import Group
 
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -38,17 +39,13 @@ class SignUpSerializer(serializers.ModelSerializer):
 
 
 class CreateContactSerializer(serializers.ModelSerializer):
-    creator_id = serializers.IntegerField(read_only=True)
-    user_id = serializers.IntegerField(read_only=True)
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
     class Meta:
         model = Contact
-        fields = "__all__"
+        exclude = ('user',)
 
     def create(self, validated_data):
         contact = Contact.objects.create(
-            user=validated_data['user'],
+            user=self.context['request'].user,
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             phone_number=validated_data['phone_number'],
@@ -61,8 +58,6 @@ class CreateContactSerializer(serializers.ModelSerializer):
 
 
 class ContactDetailSerializer(serializers.ModelSerializer):
-    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
     class Meta:
         model = Contact
         fields = "__all__"
@@ -74,33 +69,44 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class UserFilteredPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
+    def get_queryset(self):
+        request = self.context.get('request', None)
+        queryset = super(UserFilteredPrimaryKeyRelatedField, self).get_queryset()
+        if not request or not queryset:
+            return None
+        return queryset.filter(user=request.user)
+
+
 class CreateContactGroupSerializer(serializers.ModelSerializer):
-    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
-    # print(f"\n{serializers.CurrentUserDefault()}\n")
-    # print(f"\n{user.}\n")
-    # user = serializers.ReadOnlyField(source='User.username')
-
-    user = serializers.SerializerMethodField()
+    contacts = UserFilteredPrimaryKeyRelatedField(queryset=Contact.objects, many=True, write_only=True)
 
     class Meta:
         model = ContactGroup
-        fields = '__all__'
+        exclude = ('user',)
 
     def create(self, validated_data):
         contact_group = ContactGroup.objects.create(
             name=validated_data['name'],
-            user=validated_data['user'],
+            user=self.context['request'].user,
         )
 
         contact_group.contacts.set(validated_data['contacts'])
         contact_group.save()
         return contact_group
 
-    def get_user(self, obj):
-        user = None
-        request = self.context.get("request")
-        if request and hasattr(request, "user"):
-            user = request.user
+    def validate(self, attrs):
+        contacts = attrs['contacts']
+        for contact in contacts:
+            if contact.user != self.context['request'].user:
+                raise ValidationError("you dont have permission to this user")
+        return attrs
 
-        return user
+
+class RetrieveContactGroupSerializer(serializers.ModelSerializer):
+    contacts = CreateContactSerializer(many=True)
+    user = UserSerializer(many=False)
+
+    class Meta:
+        model = ContactGroup
+        fields = "__all__"
