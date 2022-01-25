@@ -61,16 +61,12 @@ First of all open the terminal or CMD and enter:
 git clone https://github.com/mowbish/PhoneBook.git
 ```
 
-After that go into the project folder with:
+After that go into the project folder and  create a virtual env
 
-```shell
-cd project
-```
-
-now create a virtual box
 
 | Windows | Linux |
 | --- | --- |
+| ``> cd PhoneBook\project  `` | ``$ cd PhoneBook/project`` |
 | ``> python -m venv venv `` | ``$ virtualenv venv`` |
 | ``> venv\scripts\activate`` | ``$ source venv/bin/activate`` |
 
