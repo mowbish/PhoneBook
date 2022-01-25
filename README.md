@@ -189,3 +189,21 @@ I could have created the core as a folder and added it to the project, but I did
 so in future versions you can also use it (core) for other tasks and works
 
 like adding `serializers.py` or `views.py` or etc
+
+### Also Rout's of project:
+
+first of all go to the:
+
+`http://127.0.0.1:8000/`
+
+after that you can go to this rout's
+
++ api/v1/signup
++ api/v1/create/contact/
++ api/v1/contacts/
++ api/v1/contact/<str:phone_number>/
++ api/v1/create/group/
++ api/v1/groups/
++ api/v1/group/<str:name>/
+
+## Good Luck And Enjoy It ;)
