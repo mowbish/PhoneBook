@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'PhoneBook',
         'USER': 'postgres',
-        'PASSWORD': 'mobinmobin',
+        'PASSWORD': 'mobinmobin1380',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -141,3 +141,12 @@ CELERY_RESULT_BACKEND = "redis://redis:6379"
 CELERY_TIMEZONE = "Asia/Tehran"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'default'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}

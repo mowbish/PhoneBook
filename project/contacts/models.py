@@ -39,6 +39,7 @@ class Contact(models.Model):
     email = models.EmailField(blank=True)
     birth_day = models.DateField(blank=True)
     description = models.TextField(max_length=550, blank=True)
+    created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name
