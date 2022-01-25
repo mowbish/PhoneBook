@@ -166,7 +166,8 @@ Enjoy it ;)
 │   │   └── urls.py
 │   ├── manage.py
 │   └── requirements.txt
-└── README.md```
+└── README.md
+```
 
 ### why I use this structure to project
 
